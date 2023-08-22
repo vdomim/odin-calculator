@@ -14,27 +14,38 @@
             </div>
             <div class="pad">
                 <div class="numbers">
-                    <button class="number">7</button>
-                    <button class="number">8</button>
-                    <button class="number">9</button>
-                    <button class="number">4</button>
-                    <button class="number">5</button>
-                    <button class="number">6</button>
-                    <button class="number">1</button>
-                    <button class="number">2</button>
-                    <button class="number">3</button>
-                    <button class="functions clear">Clear</button>
-                    <button class="number">0</button>
-                    <button class="functions">Delete</button>
+                    <div class="row">
+                        <button key="7" class="number">7</button>
+                        <button key="8" class="number">8</button>
+                        <button key="9" class="number">9</button>
+                    </div>
+                    <div class="row">
+                        <button key="4" class="number">4</button>
+                        <button key="5" class="number">5</button>
+                        <button key="6" class="number">6</button>
+                    </div>
+                    <div class="row">
+                        <button key="1" class="number">1</button>
+                        <button key="2" class="number">2</button>
+                        <button key="3" class="number">3</button>
+                    </div>
+                    <div class="row">
+                        <button key="" class="functions clear">Clear</button>
+                        <button key="0" class="number">0</button>
+                        <button key="" id="delete" class="functions">
+                            Delete
+                        </button>
+                    </div>
                 </div>
                 <div class="operations">
-                    <button class="operator +">+</button>
-                    <button class="operator -">-</button>
-                    <button class="operator *">*</button>
-                    <button class="operator /">/</button>
+                    <button key="+" class="operator +">+</button>
+                    <button key="-" class="operator -">-</button>
+                    <button key="*" class="operator *">*</button>
+                    <button key="/" class="operator /">/</button>
                 </div>
                 <div class="equals">
-                    <button class="operator">=</button>
+                    <button key="=" id="equal" class="operator">=</button>
+                    <button key="." id="float-point" class="operator">.</button>
                 </div>
             </div>
         </div>

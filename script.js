@@ -4,20 +4,76 @@ let operator = ''
 let calculated = false
 let error = false
 
+window.addEventListener('keydown', test)
+function test(event) {
+    const e = {
+        target: {
+            textContent: event.key,
+        },
+    }
+    switch (event.key) {
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+        case '.':
+            handleNumber(e)
+            break
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            handleOperator(e)
+            break
+        case '=':
+        case 'Enter':
+            handleEqual(e)
+            break
+        case 'Backspace':
+            handleDelete()
+            break
+        case 'Control':
+            clearVariables()
+            break
+    }
+}
+
 const numberBtns = document.querySelectorAll('.number')
 const operatorBtns = document.querySelectorAll('.operations .operator')
 const equalBtn = document.querySelector('.equals .operator')
-console.log('🚀 ~ file: script.js:7 ~ operatorBtns:', operatorBtns)
 const display = document.querySelector('.display')
-console.log('🚀 ~ file: script.js:7 ~ display:', display)
 const clearBtn = document.querySelector('.functions.clear')
+const pointBtn = document.querySelector('#float-point')
+const deleteBtn = document.querySelector('#delete')
 
 numberBtns.forEach((number) => number.addEventListener('click', handleNumber))
+
 operatorBtns.forEach((operator) =>
     operator.addEventListener('click', handleOperator)
 )
 equalBtn.addEventListener('click', handleEqual)
 clearBtn.addEventListener('click', clearVariables)
+pointBtn.addEventListener('click', handleNumber)
+deleteBtn.addEventListener('click', handleDelete)
+
+function handleDelete() {
+    if (firstNumber && !operator) {
+        firstNumber = firstNumber.slice(0, -1)
+        updateDisplay()
+    } else if (firstNumber && !secondNumber) {
+        operator = ''
+        updateDisplay()
+    } else {
+        secondNumber = secondNumber.slice(0, -1)
+        updateDisplay()
+    }
+}
 
 function clearVariables() {
     firstNumber = ''
@@ -36,12 +92,13 @@ function handleEqual(event) {
             Number(firstNumber),
             operator,
             Number(secondNumber)
-        )
+        ).toString()
         clearVariables()
         firstNumber = result
         updateDisplay()
         calculated = true
     }
+    pointBtn.disabled = false
 }
 
 function handleOperator(event) {
@@ -54,29 +111,41 @@ function handleOperator(event) {
         calculated = false
     } else if (operator && firstNumber && secondNumber) {
         handleEqual()
+        calculated = false
         operator = event.target.textContent
         updateDisplay()
     }
+    pointBtn.disabled = false
 }
 
 function handleNumber(event) {
-    console.log(event.target.textContent)
+    let value = event.target.textContent
+
     if (calculated) {
         clearVariables()
-        firstNumber += event.target.textContent
-        console.log(
-            '🚀 ~ file: script.js:62 ~ handleNumber ~ firstNumber:',
-            firstNumber
-        )
+        if (value === '.') {
+            value = '0.'
+        }
+        firstNumber += value
         updateDisplay()
         calculated = false
     } else if (operator) {
-        console.log('Añadimos el segundo numero')
-        secondNumber += event.target.textContent
+        if (value === '.' && secondNumber === '') {
+            value = '0.'
+        }
+        if (secondNumber.includes('.')) {
+            pointBtn.disabled = true
+        }
+        secondNumber += value
         updateDisplay()
     } else {
-        console.log('Añadimos el primer numero')
-        firstNumber += event.target.textContent
+        if (value === '.' && firstNumber === '') {
+            value = '0.'
+        }
+        if (firstNumber.includes('.')) {
+            pointBtn.disabled = true
+        }
+        firstNumber += value
         updateDisplay()
     }
 }
@@ -99,15 +168,15 @@ function operate(a, op, b) {
 }
 
 function add(a, b) {
-    return a + b
+    return parseFloat((a + b).toFixed(5))
 }
 
 function subtract(a, b) {
-    return a - b
+    return parseFloat((a - b).toFixed(5))
 }
 
 function multiply(a, b) {
-    return a * b
+    return parseFloat((a * b).toFixed(5))
 }
 
 function divide(a, b) {
@@ -115,5 +184,5 @@ function divide(a, b) {
         error = true
         return 'Error. Can`t divide by 0'
     }
-    return parseFloat((a / b).toFixed(2))
+    return parseFloat((a / b).toFixed(5))
 }
