@@ -14,7 +14,6 @@ body {
     justify-content: center;
     align-items: center;
     width: 30%;
-    min-height: 400px;
     margin: auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -26,7 +25,7 @@ body {
 
 .display-container,.pad{
     min-width: 80%;
-    min-height: 3rem;
+    min-height: 2rem;
     margin: 1rem;
     display: flex;
 }
@@ -69,11 +68,16 @@ body {
 
 .number, .functions, .operator {
     width: 33%;
-    margin: 0.5rem;
-    padding: 0.7rem;
+    margin: 0.2rem;
+    padding: 0.2rem;
+}
+
+.operations {
+    display: flex;
 }
 
 .operator {
+    flex-grow: 1;
     width: 20%;
     text-align: center;
 }
@@ -92,4 +96,18 @@ body {
 
 button {
     border-radius: 8px;
+}
+
+@media only screen and (max-width : 900px) {
+    .container {
+        width: 60%;
+    }
+
+    .operations {
+        display: flex;
+    }
+    .operator {
+        flex-grow: 1;
+        margin: 0.2rem;
+    }
 }
