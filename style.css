@@ -68,8 +68,8 @@ body {
 
 .number, .functions, .operator {
     width: 33%;
-    margin: 0.2rem;
-    padding: 0.2rem;
+    margin: 0.4rem 0.2rem;
+    padding: 0.4rem 0.2rem;
 }
 
 .operations {
